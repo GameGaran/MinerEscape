@@ -14,7 +14,7 @@ TagManager:
   - Background
   - Intractables
   - Characters
-  - 
+  - Items
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 1902396147
+    locked: 0
+  - name: Items
+    uniqueID: 2792311663
     locked: 0
