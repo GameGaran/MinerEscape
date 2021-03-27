@@ -9,11 +9,13 @@ public class PileOfRockDamage : MonoBehaviour
     private int health = 100;
 
     private Animator animator;
+    private Activity activity;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        activity = GetComponent<Activity>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class PileOfRockDamage : MonoBehaviour
     {
     }
 
-    public void GetDamage(int damage)
+    public void MakeDamage(int damage)
 	{
         if (health > damage)
             health -= damage;
@@ -35,10 +37,7 @@ public class PileOfRockDamage : MonoBehaviour
     public void Fall()
 	{
         animator.SetTrigger("Fall");
+        activity.StopActivity();
 	}
 
-    public void Die()
-	{
-        Destroy(this);
-	}
 }
