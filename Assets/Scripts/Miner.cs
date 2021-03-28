@@ -89,16 +89,21 @@ public class Miner : MonoBehaviour
 
 	private void DoActivity()
 	{
+		if (currentActivity == null)
+			return;
 		switch (currentActivity.Type)
 		{
 			case Activity.ActivityType.PileOfRock:
-				currentActivity.gameObject.GetComponent<PileOfRockDamage>().MakeDamage(damageAmount);
+				PileOfRockActivity();
 				break;
 			case Activity.ActivityType.WaterPump:
+				PumpActivity();
 				break;
 			case Activity.ActivityType.Gardening:
+				GardeningActivity();
 				break;
 			case Activity.ActivityType.Sleeping:
+				SleepActivity();
 				break;
 			default:
 				break;
@@ -162,6 +167,10 @@ public class Miner : MonoBehaviour
 			StartAnimation();
 			return true;
 		}
+		if(currentActivity != null)
+		{
+			currentActivity.FreeSpot(activitySpot);
+		}
 		var spot = activity.GetFreeSpot(this);
 		if (spot == null)
 			return false;
@@ -171,4 +180,34 @@ public class Miner : MonoBehaviour
 		StartAnimation();
 		return true;
 	}
+
+	private void PileOfRockActivity()
+	{
+		currentActivity.gameObject.GetComponent<PileOfRockDamage>().MakeDamage(damageAmount);
+		this.waterResource -= this.workWaterDrainage;
+		this.energyResource -= this.workEnergyDrainage;
+		this.foodResource -= this.workFoodDrainage;
+	}
+
+	private void PumpActivity()
+	{
+		this.waterResource -= this.pumpWaterDrainage;
+		this.energyResource -= this.pumpEnergyDrainage;
+		this.foodResource -= this.pumpFoodDrainage;
+	}
+
+	private void GardeningActivity()
+	{
+		this.waterResource -= this.gardeningWaterDrainage;
+		this.energyResource -= this.gardeningEnergyDrainage;
+		this.foodResource -= this.gardeningFoodDrainage;
+	}
+
+	private void SleepActivity()
+	{
+		this.waterResource -= this.sleepWaterDrainage;
+		this.energyResource -= this.sleepEnergyDrainage;
+		this.foodResource -= this.sleepFoodDrainage;
+	}
+
 }
