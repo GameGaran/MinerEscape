@@ -1,3 +1,5 @@
+using Michsky.UI.ModernUIPack;
+
 using System;
 
 using UnityEngine;
@@ -68,6 +70,9 @@ public class Miner : MonoBehaviour
 	[SerializeField]
 	private Transform activitySpot;
 
+	[SerializeField]
+	private ProgressBar energyProgressBar;
+
 	private bool atSpot = false;
 	private Animator animator;
 
@@ -108,6 +113,7 @@ public class Miner : MonoBehaviour
 			default:
 				break;
 		}
+
 	}
 
 	private void StartAnimation()
@@ -154,6 +160,13 @@ public class Miner : MonoBehaviour
 			atSpot = true;
 		}
 		var direction = (spotPos - pos).normalized;
+		var localScale = transform.localScale;
+		var xScale = Mathf.Abs(localScale.x);
+		if(direction.x < 0)
+		{
+			xScale = -xScale;
+		}
+			transform.localScale = new Vector3(xScale, localScale.y, localScale.z);
 		transform.position = transform.position += new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
 	}
 

@@ -260,6 +260,7 @@ MonoBehaviour:
   speed: 1
   currentActivity: {fileID: 0}
   activitySpot: {fileID: 0}
+  energyProgressBar: {fileID: 0}
 --- !u!95 &1943292671
 Animator:
   serializedVersion: 3
